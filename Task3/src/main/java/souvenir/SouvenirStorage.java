@@ -7,8 +7,7 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
-//TODO Добавлять, редактировать, просматривать всех производителей и все сувениры.
-//    • Удалить заданного производителя и его сувениры.
+
 public class SouvenirStorage {
 
     List<Souvenir> souvenirs;
@@ -55,10 +54,18 @@ public class SouvenirStorage {
                 .collect(Collectors.groupingBy(Souvenir::getDateOfManufacture))
                 .forEach((localDate, souvenirs1) -> System.out.println(localDate + " " +souvenirs1));
     }
+    public void addSouvenir(Souvenir souvenir){
+        SouvenirFabric.createSouvenir(souvenir.getName(), souvenir.getManufacturer(), souvenir.getDateOfManufacture(), souvenir.getPrice());
+        souvenirs.add(souvenir);
+        manufacturers.add(souvenir.getManufacturer());
+    }
 
-    public void deleteManufacturerWithSouvenirs(Manufacturer manufacturer){
-        manufacturers.remove(manufacturer);
-       //TODO
+    public void deleteSouvenirs(Souvenir souvenirToDelete){
+        souvenirs.removeIf(souvenir -> souvenir.equals(souvenirToDelete));
+    }
+    public void deleteManufacturerWithSouvenirs(Manufacturer manufacturerToDelete){
+        manufacturers.remove(manufacturerToDelete);
+        souvenirs.removeIf(souvenir -> souvenir.getManufacturer().equals(manufacturerToDelete));
 
     }
 
@@ -80,7 +87,7 @@ public class SouvenirStorage {
 
     private static List<Souvenir> getSouvenirsFromFile(){
         try (BufferedReader reader = Files.newBufferedReader(Path.of("src/main/resources/souvenirs.txt"))) {
-            return reader.lines().map(Souvenir::of).toList();
+            return reader.lines().map(Souvenir::of).collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
             return Collections.emptyList();
