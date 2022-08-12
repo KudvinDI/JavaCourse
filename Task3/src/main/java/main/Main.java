@@ -16,7 +16,7 @@ public class Main {
 //        souvenirStorage.printSouvenirsOfGivenManufacturer(new Manufacturer("Luxury Jewelry", "USA"));
 //        souvenirStorage.printSouvenirsOfGivenCountry("USA");
 //        souvenirStorage.printManufacturersSouvenirsLessThenGivenNumber(40);
-//        souvenirStorage.printSouvenirsOfAllManufacturers();
+//       souvenirStorage.printSouvenirsOfAllManufacturers();
 //        souvenirStorage.printSouvenirManufacturersGivenYear("Statue of Liberty figurine", 2014);
 //        souvenirStorage.printYearCreatedSouvenir();
 //          souvenirStorage.deleteManufacturerWithSouvenirs(new Manufacturer("Luxury Jewelry", "USA"));

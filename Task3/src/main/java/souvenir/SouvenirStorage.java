@@ -11,10 +11,9 @@ import java.util.stream.Collectors;
 public class SouvenirStorage {
 
     List<Souvenir> souvenirs;
-    Set<Manufacturer> manufacturers;
     public SouvenirStorage(){
         souvenirs = getSouvenirsFromFile();
-        manufacturers = souvenirs.stream().map(Souvenir::getManufacturer).collect(Collectors.toSet());
+
     }
 
     public void printSouvenirsOfGivenManufacturer(Manufacturer manufacturer){
@@ -35,7 +34,7 @@ public class SouvenirStorage {
                 .forEach(System.out::println);
     }
     public void printSouvenirsOfAllManufacturers(){
-        for(Manufacturer manufacturer : manufacturers){
+        for(Manufacturer manufacturer : SouvenirFabric.MANUFACTURERS){
             System.out.println(manufacturer);
             System.out.println(manufacturer.getSouvenirsOfManufacturer());
             System.out.println("------------------------------------------------------------------------------------------------------------");
@@ -57,14 +56,14 @@ public class SouvenirStorage {
     public void addSouvenir(Souvenir souvenir){
         SouvenirFabric.createSouvenir(souvenir.getName(), souvenir.getManufacturer(), souvenir.getDateOfManufacture(), souvenir.getPrice());
         souvenirs.add(souvenir);
-        manufacturers.add(souvenir.getManufacturer());
+        SouvenirFabric.MANUFACTURERS.add(souvenir.getManufacturer());
     }
 
     public void deleteSouvenirs(Souvenir souvenirToDelete){
         souvenirs.removeIf(souvenir -> souvenir.equals(souvenirToDelete));
     }
     public void deleteManufacturerWithSouvenirs(Manufacturer manufacturerToDelete){
-        manufacturers.remove(manufacturerToDelete);
+        SouvenirFabric.MANUFACTURERS.remove(manufacturerToDelete);
         souvenirs.removeIf(souvenir -> souvenir.getManufacturer().equals(manufacturerToDelete));
 
     }
@@ -73,8 +72,8 @@ public class SouvenirStorage {
         return souvenirs;
     }
 
-    public Set<Manufacturer> getManufacturers() {
-        return manufacturers;
+    public List<Manufacturer> getManufacturers() {
+        return SouvenirFabric.MANUFACTURERS;
     }
 
     public void printSouvenirs(){
@@ -82,7 +81,7 @@ public class SouvenirStorage {
     }
 
     public void printManufacturers(){
-        System.out.println(manufacturers);
+        System.out.println(SouvenirFabric.MANUFACTURERS);
     }
 
     private static List<Souvenir> getSouvenirsFromFile(){
